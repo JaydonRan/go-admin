@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	_ "time"
 
 	orm "go-admin/common/global"
@@ -130,6 +131,7 @@ func (e *SysDept) GetPage(bl bool) ([]SysDept, error) {
 	if err := table.Order("sort").Find(&doc).Error; err != nil {
 		return nil, err
 	}
+	fmt.Println(doc)
 	return doc, nil
 }
 
@@ -168,6 +170,10 @@ func Digui(deptlist *[]SysDept, menu SysDept) SysDept {
 		mi.Email = list[j].Email
 		mi.Status = list[j].Status
 		mi.Children = []SysDept{}
+		mi.CreateBy = list[j].CreateBy
+		mi.CreatedAt = list[j].CreatedAt
+		mi.UpdateBy = list[j].UpdateBy
+		mi.UpdatedAt = list[j].UpdatedAt
 		ms := Digui(deptlist, mi)
 		min = append(min, ms)
 
